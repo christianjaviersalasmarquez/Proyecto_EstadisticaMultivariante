@@ -26,6 +26,9 @@ if(!require(FactoClass)) install.packages("FactoClass", repos = "http://cran.us.
 if(!require(factoextra)) install.packages("factoextra", repos = "http://cran.us.r-project.org")
 if(!require(missMDA)) install.packages("missMDA", repos = "http://cran.us.r-project.org")
 if(!require(ggpubr)) install.packages("ggpubr", repos = "http://cran.us.r-project.org")
+if(!require(mirt)) install.packages("mirt", repos = "http://cran.us.r-project.org")
+if(!require(WrightMap)) install.packages("WrightMap", repos = "http://cran.us.r-project.org")
+if(!require(ggcorrplot)) install.packages("ggcorrplot", repos = "http://cran.us.r-project.org")
 
 
 #Data
@@ -33,14 +36,16 @@ options(warn = -1)
 #datos <- read_sav("BASE-FINAL.sav")
 datos <- read.spss("BASE-FINAL.sav", to.data.frame = TRUE, use.value.labels = FALSE)
 df <- datos
-##
+
+# Secciones del dataset
 encuesta <- datos[,1:18]
 MMST <- datos[,19:50]
 TMT <- datos[,51:54]
 UPPS <- datos[,55:105]
 GDS <- datos[,109:124]
 TEST_SENTIMIENTOS <- datos[,126:138]
-#Data Separada
+
+# Variables
 genero = datos$Género #categórica
 edad = datos$Edad #Cuantitativa
 estudios = datos$Estudios #categórica
@@ -94,7 +99,8 @@ resulltadoMME <- datos$RMM
 #Cuantitativa
 RMM = datos$RMM
 ##Area de trabajo
-#Descriptivas
+
+# Estadística Descriptiva
 hist.edades <- plot_ly(x = edad ,type = "histogram",histnorm = "probability", name = "Distribución de la edad de los pacientes")
 hist.nota.MM <- plot_ly(x = calificacion ,type = "histogram",histnorm = "probability", name = "Distribución de las calificaciones del test Mini Mental Examination")
 hist.nota.TMT <- plot_ly(x = TMT ,type = "histogram",histnorm = "probability", name = "Distribución de la edad de los pacientes")
@@ -173,26 +179,11 @@ PerfilExaminado <- data.frame(genero, rango_edades, estudios,estado, ocupacion, 
 colnames(PerfilExaminado) <- c("Género","Rango de Edad","Estudios","Estado Civil","Ocupación","Residencia","Atención","Discapacidad","Jubilado","Satisfacción Salud","Percepción de la Edad","Deprimido","Memoria","Fuma","Alcohol","Enfermedad","Antecedente Familiar Demencia","Expuesto a Tóxicos")
 
 
-library(ca)
-library(stringr)
-library(FactoMineR)
-library(ade4)
-library(FactoClass)
-library(factoextra)
-library(missMDA)
-
 acm <- mjca(PerfilExaminado)
-
-
 acm_summary <- summary(acm)
-
 acm_summary_columns <- acm_summary$columns
 
-
 coordenadas <- data.frame(acm_summary_columns[,5], acm_summary_columns[,8])/1000
-
-
-
 
 df_variables <- data.frame(acm_summary_columns$name)
 
@@ -222,8 +213,6 @@ df_variables$Grupo[str_sub(df_variables$acm_summary_columns.name,1,3) == 'Exp'] 
 
 
 
-
-
 w <- str_split(df_variables$acm_summary_columns.name,":")
 
 vector_unlist <- unlist(w)
@@ -248,8 +237,7 @@ coordenadas <- coordenadas[coordenadas$nombre_rotulos != 'Blanco',]
 
 
 
-library(highcharter)
-library(dplyr)
+
 
 
 
@@ -274,9 +262,7 @@ hc <- highchart()%>%
 
 ###### 
 #TRI
-library(mirt)
-library(shiny)
-library(WrightMap)
+
 
 datos_tri <- data.frame(MM1,MM2,MM3,MM4,MM5,MM6,MM7,MM8,MM9,MM10,MM11,MM12,MM13,MM14,MM15,MM16,MM17,MM18,MM19,MM20,MM21,MM22,MM23,MM24,MM25,MM26,MM27,MM28,MM29)
 
@@ -299,7 +285,7 @@ modelo_tri_coef <- coef(modelo_tri, simplify = T, IRTpars = T)
 #############
 
 # AF
-library(ggcorrplot)
+
 
 o_temporal = MM1+MM2+MM3+MM4+MM5 # Puntaje para Orientación Temporal
 o_espacial = MM6+MM7+MM8+MM9+MM10 # Puntaje para Orientación Espacial

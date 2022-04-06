@@ -1,4 +1,5 @@
 options(encoding = 'UTF-8')
+
 if(!require(shiny)) install.packages("shiny", repos = "http://cran.us.r-project.org")
 if(!require(shinydashboard)) install.packages("shinydashboard", repos = "http://cran.us.r-project.org")
 if(!require(readr)) install.packages("readr", repos = "http://cran.us.r-project.org")
@@ -30,7 +31,6 @@ if(!require(ggpubr)) install.packages("ggpubr", repos = "http://cran.us.r-projec
 
 
 
-
 ####
 introPrincipal <- h3(style="text-align: justify;", "El presente trabajo investigativo forma parte de la materia Estadística Multivariante de la Escuela Superior Politécnica del Litoral, el cual representa una compilación de los conocimientos adquiridos durante el curso. Este trabajo, se titula “Análisis Multivariante de las características de los Tests Psicométricos”, el cual tiene como objetivo la aplicación los conocimientos obtenidos durante el curso. Así mismo, se busca develar las técnicas multivariantes aprendidas, de modo que este trabajo investigativo pueda aportar a toma decisiones en el campo de la psicología validándose del análisis que daremos a este trabajo.
 En nuestra sociedad la salud mental ha sido uno de los temas con mayor crecimiento de interés en las últimas décadas, de modo que las técnicas de psicología clínica se afianzan de la estadística para obtener resultados que se correlacionen para su debida interpretación y toma de decisión con dichos resultados. Este trabajo está estructurado por un análisis descriptivo seguido de un análisis multivariante. Se utilizan las diversas técnicas multivariantes y se presentan las respectivas interpretaciones para que este trabajo no se vuelva solo un conglomerado de ecuaciones y cálculos. Los datos serán tratados estadísticamente para investigar las variables explicativas (dependientes a cada observación). Por último, se presentarán los anexos, bibliografías y fuentes que se han utilizado en este trabajo académico.")
@@ -58,14 +58,7 @@ prevalencia de sufrir depresión.")
 t2 <- p(style="text-align: justify;","El valor p es de 0.3. Dado el nivel de significancia alpha = 0.05, no rechazamos la hipótesis nula. Es decir,
 existe independencia entre el grupo etáreo y si el examinado tiene depresión o no.")
 
-conclusion <- h3(style="text-align: justify;", "  El método Biplot ha demostrado ser una herramienta gráfica pertinente y útil para el analisis de los datos derivados de las aplicaciones del Mini mental State Examination (MMSE). La representacion grafica en este trabajo en base a test psicometricos tuvo una enorme ventaja ante las presentaciones de analisis descriptivos. En el analisis de datos multivariantes no solo se inciden las caracteristicas de las tecnicas que se usan, sino que observar como influye la manera en la que los datos. Como pudimos observar, los patrones de las respuestas tienen cierta relacion con el invididuo que contesta un item de los diversos test. Esto extiende como se considera una respuesta binaria en un test hacia el campo de otras ciencias como la psicometria" ) 
-
-
-
-
-
-
-
+conclusion <- h3(style="text-align: justify;", " Las técnicas multivariantes utilizadas han demostrado ser unas herramientas útiles para el analisis de los datos derivados de las aplicaciones del Mini mental State Examination (MMSE). La representacion grafica en este trabajo en base a test psicometricos tuvo una enorme ventaja ante las presentaciones de analisis descriptivos. En el analisis de datos multivariantes no solo se inciden las caracteristicas de las tecnicas que se usan, sino que observar como influye la manera en la que los datos. Como pudimos observar, los patrones de las respuestas tienen cierta relacion con el invididuo que contesta un item de los diversos test. Esto extiende como se considera una respuesta binaria en un test hacia el campo de otras ciencias como la psicometria" ) 
 
 
 
@@ -143,11 +136,9 @@ body <- dashboardBody(
 
 #UI
 ui <- dashboardPage(title= "Dashboard", skin= "purple",
-                    
                     header = header,
                     sidebar = sidebar,
-                    body = body
-)
+                    body = body)
 
 #Servidor
 server <- function(input, output) {
@@ -168,10 +159,9 @@ server <- function(input, output) {
   output$hist.UPPS  <- renderPlotly(hist.UPPS)
   output$hist.GDS <- renderPlotly(hist.GDS)
   output$hcontainer <- renderHighchart(hc)
-  
   output$grafCorr  <- renderPlot(grafCorr) 
-  
   output$tri_cci <- renderPlot(tri_cci)
 }
+
 #App0
 shinyApp(ui, server)
