@@ -1,41 +1,39 @@
 options(encoding = 'UTF-8')
-library(shiny)
-library(shinydashboard)
-library(readr)
-library(haven)
-library(DT)
-library(ggplot2)
-library(tidyverse)
-library(lubridate)
-library(plotly)
-library(agricolae)
-library(haven) 
-library(corrplot)
-library(corrr) 
-library(highcharter)
-library(dplyr)
-library(ggplot2)
-library(grid)
-library(gridExtra)
-library(GPArotation)
-library(psych)
-library(nFactors)
-library(knitr)
-library(reshape2)
-library(foreign)
-library(ca)
-library(stringr)
-library(FactoMineR)
-library(ade4)
-library(FactoClass)
-library(factoextra)
-library(missMDA)
-library(ggpubr)
-library(tidyr)
+if(!require(shiny)) install.packages("shiny", repos = "http://cran.us.r-project.org")
+if(!require(shinydashboard)) install.packages("shinydashboard", repos = "http://cran.us.r-project.org")
+if(!require(readr)) install.packages("readr", repos = "http://cran.us.r-project.org")
+if(!require(haven)) install.packages("haven", repos = "http://cran.us.r-project.org")
+if(!require(DT)) install.packages("DT", repos = "http://cran.us.r-project.org")
+if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+if(!require(lubridate)) install.packages("lubridate", repos = "http://cran.us.r-project.org")
+if(!require(plotly)) install.packages("plotly", repos = "http://cran.us.r-project.org")
+if(!require(agricolae)) install.packages("agricolae", repos = "http://cran.us.r-project.org")
+if(!require(haven)) install.packages("haven", repos = "http://cran.us.r-project.org")
+if(!require(corrplot)) install.packages("corrplot", repos = "http://cran.us.r-project.org")
+if(!require(corrr)) install.packages("corrr", repos = "http://cran.us.r-project.org")
+if(!require(highcharter)) install.packages("highcharter", repos = "http://cran.us.r-project.org")
+if(!require(grid)) install.packages("grid", repos = "http://cran.us.r-project.org")
+if(!require(gridExtra)) install.packages("gridExtra", repos = "http://cran.us.r-project.org")
+if(!require(GPArotation)) install.packages("GPArotation", repos = "http://cran.us.r-project.org")
+if(!require(psych)) install.packages("psych", repos = "http://cran.us.r-project.org")
+if(!require(nFactors)) install.packages("nFactors", repos = "http://cran.us.r-project.org")
+if(!require(knitr)) install.packages("knitr", repos = "http://cran.us.r-project.org")
+if(!require(reshape2)) install.packages("reshape2", repos = "http://cran.us.r-project.org")
+if(!require(foreign)) install.packages("foreign", repos = "http://cran.us.r-project.org")
+if(!require(ca)) install.packages("ca", repos = "http://cran.us.r-project.org")
+if(!require(FactoMineR)) install.packages("FactoMineR", repos = "http://cran.us.r-project.org")
+if(!require(ade4)) install.packages("ade4", repos = "http://cran.us.r-project.org")
+if(!require(FactoClass)) install.packages("FactoClass", repos = "http://cran.us.r-project.org")
+if(!require(factoextra)) install.packages("factoextra", repos = "http://cran.us.r-project.org")
+if(!require(missMDA)) install.packages("missMDA", repos = "http://cran.us.r-project.org")
+if(!require(ggpubr)) install.packages("ggpubr", repos = "http://cran.us.r-project.org")
+
+
+
+
 ####
 introPrincipal <- h3(style="text-align: justify;", "El presente trabajo investigativo forma parte de la materia Estadística Multivariante de la Escuela Superior Politécnica del Litoral, el cual representa una compilación de los conocimientos adquiridos durante el curso. Este trabajo, se titula “Análisis Multivariante de las características de los Tests Psicométricos”, el cual tiene como objetivo la aplicación los conocimientos obtenidos durante el curso. Así mismo, se busca develar las técnicas multivariantes aprendidas, de modo que este trabajo investigativo pueda aportar a toma decisiones en el campo de la psicología validándose del análisis que daremos a este trabajo.
-En nuestra sociedad la salud mental ha sido uno de los temas con mayor crecimiento de interés en las últimas décadas, de modo que las técnicas de psicología clínica se afianzan de la estadística para obtener resultados que se correlacionen para su debida interpretación y toma de decisión con dichos resultados. Este trabajo está estructurado por un análisis descriptivo seguido de un análisis multivariante. Se utilizan las diversas técnicas multivariantes y se presentan las respectivas interpretaciones para que este trabajo no se vuelva solo un conglomerado de ecuaciones y cálculos.
-Las variables de respuesta del estudio surgen de un grupo de individuos de las zonas aledañas del cantón Milagro. Los datos serán tratados estadísticamente para investigar las variables explicativas (dependientes a cada observación). Por último, se presentarán los anexos, bibliografías y fuentes que se han utilizado en este trabajo académico.")
+En nuestra sociedad la salud mental ha sido uno de los temas con mayor crecimiento de interés en las últimas décadas, de modo que las técnicas de psicología clínica se afianzan de la estadística para obtener resultados que se correlacionen para su debida interpretación y toma de decisión con dichos resultados. Este trabajo está estructurado por un análisis descriptivo seguido de un análisis multivariante. Se utilizan las diversas técnicas multivariantes y se presentan las respectivas interpretaciones para que este trabajo no se vuelva solo un conglomerado de ecuaciones y cálculos. Los datos serán tratados estadísticamente para investigar las variables explicativas (dependientes a cada observación). Por último, se presentarán los anexos, bibliografías y fuentes que se han utilizado en este trabajo académico.")
 
 
 integrantes <- h3("Christian Salas M., John Borbor M., Pedro Goya C.")
@@ -75,7 +73,7 @@ conclusion <- h3(style="text-align: justify;", "  El método Biplot ha demostrad
 
 
 #Header 
-header <- dashboardHeader(title="PROYECTO")
+header <- dashboardHeader(title="Multivariante")
 #Sidebar
 
 sidebar <- dashboardSidebar(
@@ -102,7 +100,7 @@ sidebar <- dashboardSidebar(
   )
 )
 
-#Cuerpo
+#Body
 body <- dashboardBody(
   tabItems(
     tabItem(tabName = "intro", box(title = strong("Introducción"),introPrincipal), box(title=strong("Integrantes"), integrantes), box(title=strong("Objetivo General"), objetivo), box(title=strong("Objetivos Secundarios"),objetivos_secundarios)),
@@ -128,13 +126,7 @@ body <- dashboardBody(
                       column(width = 3,box(title = "Antecedentes familiares de demencia", plotlyOutput("hist.antecedentes.demencia"),width = 12)),
                       column(width = 3,box(title = "Resultados Cuestionario Impulsividad", plotlyOutput("hist.UPPS"),width = 12)),
                       column(width = 3,box(title = "Resultados Geriatric Depression Test", plotlyOutput("hist.GDS"),width = 12))
-                      
-                      
-                      
             )),
-    
-    
-    
     tabItem(tabName = "perfilMME", 
             fluidRow( column(width = 12, box(title = strong("ACM Perfil del Examinado"), highchartOutput("hcontainer") ,width = 12)))),
             
@@ -147,8 +139,6 @@ body <- dashboardBody(
                     fluidRow( column(width = 12, box(title = strong("CCI Teoría de Respuesta al Item MMSE"), plotOutput("tri_cci") ,width = 12))
                     )
             )
-            
-    
   ))
 
 #UI
